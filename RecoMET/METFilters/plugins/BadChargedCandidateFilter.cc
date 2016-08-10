@@ -105,8 +105,8 @@ BadChargedCandidateFilter::filter(edm::StreamID iID, edm::Event& iEvent, const e
         // Consider only muons with large relative pt error
         if (debug_) cout<<"Muon inner track pt rel err: "<<innerMuonTrack->ptError()/innerMuonTrack->pt()<<endl;
         if (not ( innerMuonTrack->ptError()/innerMuonTrack->pt() > minMuonTrackRelErr_ ) ) {
-            if (debug_) cout<<"Skipping this muon because seems well measured."<<endl; 
-            continue;
+            if (debug_) cout<<" this muon seems well measured."<<endl; 
+	    // continue;
         }
         for ( unsigned j=0; j < pfCandidates->size(); ++j ) {
             const reco::Candidate & pfCandidate = (*pfCandidates)[j];

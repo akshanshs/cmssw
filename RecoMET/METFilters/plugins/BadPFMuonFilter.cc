@@ -104,12 +104,12 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
        continue;
     }
 
-    if ( innerMuonTrack->quality(reco::TrackBase::highPurity) ) { 
-      //      if (debug_) cout<<"Skipping this muon because inner track is high purity."<<endl; 
+    if ( innerMuonTrack->quality(reco::TrackBase::highPurity) ) {
+      if (debug_) cout<<" this muon's inner track is high purity."<<endl; 
       // continue;
     }
     
-    if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "pt:" << innerMuonTrack->pt() << endl;
+    // if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "pt:" << innerMuonTrack->pt() << endl;
    
     // Consider only muons with large relative pt error
     if (debug_) cout<<"Muon inner track pt rel err: "<<innerMuonTrack->ptError()/innerMuonTrack->pt()<<endl;
@@ -125,6 +125,11 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
           continue;
     }
     
+    if (muon::segmentCompatibility(muon) < 0.3); {
+      if (debug_) cout <<"Skipping this muon because segment compatiblity < 0.3";
+      continue;
+    }
+    
     for ( unsigned j=0; j < pfCandidates->size(); ++j ) {
       const reco::Candidate & pfCandidate = (*pfCandidates)[j];
       // look for pf muon
@@ -132,7 +137,7 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
       if ( not ( ( abs(pfCandidate.pdgId()) == 13) and (pfCandidate.pt() > minMuPt_) ) ) continue;
       // require small  dR
       float dr = deltaR( muon.eta(), muon.phi(), pfCandidate.eta(), pfCandidate.phi() );
-      if( (dr < 0.001) or (muon::segmentCompatibility(muon) > 0.3) or (globalMuonTrack->ptError()/globalMuonTrack->pt() > 2)  ) {
+      if( (dr < 0.001) or (globalMuonTrack->ptError()/globalMuonTrack->pt() > 2)  ) {
        
 	foundBadPFMuon=true;
 	if (debug_) cout <<"found bad muon! SC:" << muon::segmentCompatibility(muon) <<endl;

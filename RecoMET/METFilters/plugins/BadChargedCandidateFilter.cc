@@ -89,7 +89,7 @@ BadChargedCandidateFilter::filter(edm::StreamID iID, edm::Event& iEvent, const e
   for ( unsigned i=0; i < muons->size(); ++i ) { // loop over all muons
 
     const reco::Muon & muon = (*muons)[i];
-    if (debug_) cout<<"BadChargedCandidate test"<<endl;
+    // if (debug_) cout<<"BadChargedCandidate test"<<endl;
     if ( muon.pt() > minMuonPt_) {
         reco::TrackRef innerMuonTrack = muon.innerTrack();
         if (debug_) cout<<"muon "<<muon.pt()<<endl;

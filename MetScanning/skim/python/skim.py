@@ -34,14 +34,14 @@ process.source = cms.Source(
     "PoolSource",
     fileNames = cms.untracked.vstring(
         #'file:/nfs/dust/cms/user/singha/SUSY_2016C/CMSSW_8_0_11/src/CMGTools/TTHAnalysis/python/plotter/pick_DMD.root'
-        'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/crab/crab_pickevents_22jul-jun_allpass/crab_pickEvents_26jul/results/skim_22Jul-Jun.root'
+        #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/crab/crab_pickevents_22jul-jun_allpass/crab_pickEvents_26jul/results/skim_22Jul-Jun.root'
         #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/crab/crab_pickevents_22jul-jun_allpass/crab_pickEvents_26jul/results/skim_22Jul-Jun.root'
         #'file:/nfs/dust/cms/group/susy-desy/Run2/Data/2016/ICHEP_12p88fb_2016BCD_HT350Skim_fromDESY/Friends/teste/pickevents.root'
         #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/python/zeynep/pickevents_blackholes.root'
         #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/python/ece/pickevents_4Muonevent_rereco.root'
        #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/python/ece/ece_single_Muon_rereco.root'
        #'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW808_bugfix/CMSSW_8_0_8/src/MetScanning/skim/crab/crab_pickevents_allPass/crab_pickEvents_all/results/Pickskim_allPass.root' 
-       # 'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW_8_0_8/src/MetScanning/skim/crab/raman_events/pickeventsAllFilters.root'
+        'file:/nfs/dust/cms/user/singha/MET_scan_8/CMSSW_8_0_8/src/MetScanning/skim/crab/raman_events/pickeventsAllFilters.root'
         #'file:/hdfs/store/user/khurana/MET/crab_MET_Run2016B-PromptReco-v2_RECO/160524_134615/0000/skim_406.root'
         #'root://xrootd.unl.edu//store/express/Run2016B/ExpressPhysics/FEVT/Express-v1/000/272/007/00000/84DC1CFA-830D-E611-9BFC-02163E012058.root'
        # 'root://xrootd.unl.edu//store/express/Run2016B/ExpressPhysics/FEVT/Express-v1/000/272/008/00000/00100D61-870D-E611-9B62-02163E01470B.root'
@@ -346,8 +346,8 @@ process.p = cms.Path(
     process.metScanNtupleMaker ##CH: writes a flat tree
     )
 
-process.e1 = cms.EndPath(
-    process.out ##CH: write the skimmed edm file 
-    )
+#process.e1 = cms.EndPath(
+ #   process.out ##CH: write the skimmed edm file 
+  #  )
 
 ##____________________________________________________________________________||

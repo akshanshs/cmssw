@@ -112,7 +112,7 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
       // continue;
     }
     
-    // if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "pt:" << innerMuonTrack->pt() << endl;
+ 
    
     // Consider only muons with large relative pt error
     if (debug_) cout<<"Muon inner track pt rel err: "<<innerMuonTrack->ptError()/innerMuonTrack->pt()<<endl;
@@ -130,7 +130,8 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
     
     if ((muon::segmentCompatibility(muon) < 0.3) and (bestMuonTrack->ptError()/bestMuonTrack->pt() < 2)); {
       if (debug_) cout <<"Skipping this muon because segment compatiblity < 0.3 and relErr(best track) <2 " << endl;
-      continue;
+      if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "RelPtErr:" << bestMuonTrack->ptError()/bestMuonTrack->pt() << endl;
+     continue;
     }
     
     for ( unsigned j=0; j < pfCandidates->size(); ++j ) {

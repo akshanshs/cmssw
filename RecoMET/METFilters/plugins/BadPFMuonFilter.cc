@@ -93,8 +93,6 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
     reco::TrackRef innerMuonTrack = muon.innerTrack();
     reco::TrackRef globalMuonTrack = muon.globalTrack();
     reco::TrackRef bestMuonTrack = muon.muonBestTrack();
-
-    
     
     if (debug_) cout << "PF filter muon:" << i << endl ;
     if ( innerMuonTrack.isNull() ) { 
@@ -111,9 +109,7 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
       if (debug_) cout<<" this muon's inner track is high purity."<<endl; 
       // continue;
     }
-    
- 
-   
+       
     // Consider only muons with large relative pt error
     if (debug_) cout<<"Muon inner track pt rel err: "<<innerMuonTrack->ptError()/innerMuonTrack->pt()<<endl;
     if (not ( innerMuonTrack->ptError()/innerMuonTrack->pt() > minTrkPtError_ ) ) {
@@ -142,8 +138,7 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
       // require small  dR
       float dr = deltaR( muon.eta(), muon.phi(), pfCandidate.eta(), pfCandidate.phi() );
       if (dr < 0.001) {
-       
-	foundBadPFMuon=true;
+       	foundBadPFMuon=true;
 	if (debug_) cout <<"found bad muon! SC:" << muon::segmentCompatibility(muon) <<endl;
 	break;
       }

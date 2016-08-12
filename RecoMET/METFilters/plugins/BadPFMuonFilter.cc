@@ -123,8 +123,9 @@ BadPFMuonFilter::filter(edm::StreamID iID, edm::Event& iEvent, const edm::EventS
       if (debug_) cout<<"Skipping this muon because is not coming from the muonSeededStepOutIn"<<endl; 
           continue;
     }
+
     if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "RelPtErr:" << bestMuonTrack->ptError()/bestMuonTrack->pt() << endl;    
-    if ((muon::segmentCompatibility(muon) < 0.3) and (bestMuonTrack->ptError()/bestMuonTrack->pt() < 2)); {
+    if (muon::segmentCompatibility(muon) < 0.3 && bestMuonTrack->ptError()/bestMuonTrack->pt() < 2.0) {
       if (debug_) cout <<"Skipping this muon because segment compatiblity < 0.3 and relErr(best track) <2 " << endl;
      continue;
     }

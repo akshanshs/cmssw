@@ -89,7 +89,10 @@ BadChargedCandidateFilter::filter(edm::StreamID iID, edm::Event& iEvent, const e
   for ( unsigned i=0; i < muons->size(); ++i ) { // loop over all muons
 
     const reco::Muon & muon = (*muons)[i];
-    // if (debug_) cout<<"BadChargedCandidate test"<<endl;
+
+    reco::TrackRef bestMuonTrack = muon.muonBestTrack();
+
+    if (debug_) cout<<"BadChargedCandidate test:Muon "<< i << endl;
     if ( muon.pt() > minMuonPt_) {
         reco::TrackRef innerMuonTrack = muon.innerTrack();
         if (debug_) cout<<"muon "<<muon.pt()<<endl;
@@ -108,6 +111,13 @@ BadChargedCandidateFilter::filter(edm::StreamID iID, edm::Event& iEvent, const e
             if (debug_) cout<<" this muon seems well measured."<<endl; 
 	    // continue;
         }
+	
+	if (debug_) cout << "SegmentCompatibility :"<< muon::segmentCompatibility(muon) << "RelPtErr:" << bestMuonTrack->ptError()/bestMuonTrack->pt() << endl;
+	if (muon::segmentCompatibility(muon) < 0.3 && bestMuonTrack->ptError()/bestMuonTrack->pt() < 2.0) {
+	  if (debug_) cout <<"Skipping this muon because segment compatiblity < 0.3 and relErr(best track) <2 " << endl;
+	  continue;
+	}
+
         for ( unsigned j=0; j < pfCandidates->size(); ++j ) {
             const reco::Candidate & pfCandidate = (*pfCandidates)[j];
             // look for charged hadrons

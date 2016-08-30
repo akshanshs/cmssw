@@ -93,14 +93,24 @@ BadChargedCandidateFilter::filter(edm::StreamID iID, edm::Event& iEvent, const e
     reco::TrackRef bestMuonTrack = muon.muonBestTrack();
 
     if (debug_) cout<<"BadChargedCandidate test:Muon "<< i << endl;
-    if ( muon.pt() > minMuonPt_) {
-        reco::TrackRef innerMuonTrack = muon.innerTrack();
+    // reco::TrackRef innerMuonTrack = muon.innerTrack();
+    //  if ( muon.pt() < minMuonPt_ && innerMuonTrack->pt() < minMuonPt_) {
+    //  if (debug_) cout <<"skipping the muon because low muon pt" << endl;
+    //  continue ; } {
+    {
+       reco::TrackRef innerMuonTrack = muon.innerTrack();
         if (debug_) cout<<"muon "<<muon.pt()<<endl;
-
+	
         if ( innerMuonTrack.isNull() ) { 
             if (debug_) cout<<"Skipping this muon because it has no inner track"<<endl; 
             continue; 
             };
+
+	if ( muon.pt() < minMuonPt_ && innerMuonTrack->pt() < minMuonPt_) {
+          if (debug_) cout <<"skipping the muon because low muon pt" << endl;
+          continue;
+        }
+
         if ( innerMuonTrack->quality(reco::TrackBase::highPurity) ) { 
             if (debug_) cout<<" Muons's inner track is high purity."<<endl; 
 	    // continue;
